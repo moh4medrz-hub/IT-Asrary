@@ -3,22 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام بلاغات منسق التقنية</title>
+    <title>منسق التقنية</title>
     <style>
-        :root {
-            --primary-color: #2563eb;
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --success: #22c55e;
-            --important: #eab308;
-            --urgent: #ef4444;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            background-color: #f1f5f9;
             margin: 0;
             padding: 20px;
             display: flex;
@@ -26,212 +15,64 @@
             align-items: center;
             min-height: 100vh;
         }
-
         .container {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             width: 100%;
-            max-width: 480px;
+            max-width: 400px;
         }
-
-        .header {
-            text-align: center;
-            margin-bottom: 25px;
+        h1 { color: #2563eb; text-align: center; font-size: 22px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;
         }
-
-        .header h1 {
-            font-size: 24px;
-            margin: 0 0 8px 0;
-            color: var(--primary-color);
+        button {
+            width: 100%; background: #2563eb; color: white; padding: 12px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;
         }
-
-        .header p {
-            font-size: 14px;
-            color: #64748b;
-            margin: 0;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            font-size: 14px;
-        }
-
-        input[type="text"], select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            box-sizing: border-box;
-            font-size: 15px;
-            background-color: #f8fafc;
-            transition: all 0.3s;
-        }
-
-        input[type="text"]:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        .priority-options {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .priority-btn {
-            border: 2px solid #cbd5e1;
-            padding: 10px;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 14px;
-            transition: all 0.2s;
-            background: #fff;
-        }
-
-        input[type="radio"] {
-            display: none;
-        }
-
-        #p-normal:checked + .priority-btn { border-color: var(--success); color: var(--success); background: rgba(34, 197, 94, 0.1); }
-        #p-important:checked + .priority-btn { border-color: var(--important); color: var(--important); background: rgba(234, 179, 8, 0.1); }
-        #p-urgent:checked + .priority-btn { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.1); }
-
-        button[type="submit"] {
-            width: 100%;
-            background-color: var(--primary-color);
-            color: white;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 10px;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #1d4ed8;
-        }
-
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 30px 10px;
-        }
-
-        .success-message h2 { color: var(--success); margin-bottom: 10px; }
+        button:hover { background: #1d4ed8; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- استمارة إرسال الطلب -->
-    <form id="ticketForm" action="https://formspree.io" method="POST">
-        <div class="header">
-            <h1>👨‍💻 منسق التقنية بالمجمع</h1>
-            <p>يرجى تعبئة تفاصيل العطل الفني لنتعامل معه فوراً</p>
-        </div>
-
+    <h1>👨‍💻 منسق التقنية بالمجمع</h1>
+    <form action="https://formspree.io" method="POST">
+        
         <div class="form-group">
-            <label for="department">القسم المعني</label>
-            <select id="department" name="القسم" required>
-                <option value="" disabled selected>اختر القسم...</option>
+            <label>القسم المعني</label>
+            <select name="القسم" required>
                 <option value="الإدارة">الإدارة</option>
                 <option value="القسم الابتدائي">القسم الابتدائي</option>
                 <option value="القسم المتوسط">القسم المتوسط</option>
                 <option value="القسم الثانوي">القسم الثانوي</option>
-                <option value="معامل الحاسب">معامل الحاسب الآلي</option>
-                <option value="شؤون الطلاب">شؤون الطلاب</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="location">الموقع داخل المجمع بدقة</label>
-            <input type="text" id="location" name="المكان الفعلي" placeholder="مثال: الدور الثاني - فصل 3ب، مكتب الوكيل" required>
+            <label>الموقع بدقة</label>
+            <input type="text" name="المكان" placeholder="مثال: الدور الثاني - فصل 3" required>
         </div>
 
         <div class="form-group">
-            <label>أهمية الطلب (الأولوية)</label>
-            <div class="priority-options">
-                <label>
-                    <input type="radio" id="p-normal" name="الأهمية" value="🟢 عادي" checked>
-                    <div class="priority-btn">عادي</div>
-                </label>
-                <label>
-                    <input type="radio" id="p-important" name="الأهمية" value="🟡 مهم">
-                    <div class="priority-btn">مهم</div>
-                </label>
-                <label>
-                    <input type="radio" id="p-urgent" name="الأهمية" value="🔴 عاجل">
-                    <div class="priority-btn">عاجل</div>
-                </label>
-            </div>
+            <label>أهمية الطلب</label>
+            <select name="الأهمية" required>
+                <option value="عادي">🟢 عادي</option>
+                <option value="مهم">🟡 مهم</option>
+                <option value="عاجل">🔴 عاجل</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="description">وصف المشكلة التقنية</label>
-            <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل (مثل: البروجكتر لا يعمل، انقطاع شبكة...)" required></textarea>
+            <label>وصف المشكلة</label>
+            <textarea name="الوصف" rows="4" placeholder="اكتب المشكلة هنا..." required></textarea>
         </div>
-
-        <!-- حقل مخفي لتسجيل تاريخ البلاغ تلقائياً -->
-        <input type="hidden" id="timestamp" name="وقت البلاغ">
 
         <button type="submit">إرسال الطلب للمنسق 🚀</button>
     </form>
-
-    <!-- شاشة النجاح بعد الإرسال -->
-    <div id="successMessage" class="success-message">
-        <h2>✅ تم إرسال طلبك بنجاح!</h2>
-        <p>تلقى منسق التقنية بلاغك وجاري العمل على مراجعته وحل المشكلة في أقرب وقت.</p>
-        <button onclick="window.location.reload()" style="background: none; border: 1px solid var(--primary-color); color: var(--primary-color); padding: 8px 16px; border-radius: 6px; cursor: pointer; margin-top: 15px;">تقديم بلاغ آخر</button>
-    </div>
 </div>
-
-<script>
-    // تسجيل الوقت تلقائياً عند تحميل الصفحة لتوثيق البلاغ
-    document.getElementById('timestamp').value = new Date().toLocaleString('ar-EG');
-
-    // جعل النموذج يتعامل مع الإرسال بسلاسة دون مغادرة الصفحة
-    const form = document.getElementById('ticketForm');
-    const successDiv = document.getElementById('successMessage');
-
-    form.onsubmit = async (e) => {
-        // تأكد من استبدال mkjgnjzq برابط الحساب الفعلي الخاص بك في الخطوة التالية لتفعيل الإرسال
-        if(form.getAttribute('action').includes('mkjgnjzq')) {
-            e.preventDefault();
-            alert('النموذج جاهز برمجيّاً! يرجى إدخال معرف Formspree الخاص بك لتلقي الإيميلات (مشروح في الخطوة التالية).');
-            return;
-        }
-        
-        e.preventDefault();
-        const data = new FormData(form);
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-        });
-        
-        if (response.ok) {
-            form.style.display = 'none';
-            successDiv.style.display = 'block';
-        } else {
-            alert('عذراً، حدث خطأ أثناء إرسال الطلب. يرجى المحاولة مرة أخرى.');
-        }
-    };
-</script>
 
 </body>
 </html>

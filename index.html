@@ -72,7 +72,6 @@
         #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
         #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
-        /* تغيير الزر إلى نوع عادي لحل المشكلة قطعيّاً */
         .btn-submit {
             width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; text-align: center;
         }
@@ -100,8 +99,7 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- تم حذف التوجيه المباشر لمنع تصادم المتصفح مع خوادم جوجل -->
-        <form id="techForm">
+        <form id="techForm" onsubmit="event.preventDefault(); sendData();">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -175,12 +173,10 @@
                 <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
             </div>
 
-            <!-- تم تغيير نوع الزر وحذف الـ submit التقليدي للتحكم بالاستجابة بالخلفية -->
-            <button type="button" id="submitBtn" class="btn-submit" onclick="sendData()">إرسال البلاغ الفني 🚀</button>
+            <button type="submit" id="submitBtn" class="btn-submit">إرسال البلاغ الفني 🚀</button>
         </form>
     </div>
 
-    <!-- شاشة النجاح العربية والاحترافية الكاملة -->
     <div id="successSection" class="success-screen">
         <span class="success-icon">🎉</span>
         <h2>تم إرسال طلبك بنجاح!</h2>
@@ -193,3 +189,12 @@
         <a href="https://wa.me" target="_blank" class="btn-whatsapp">
             <img src="https://wikimedia.org" alt="WhatsApp" class="whatsapp-img">
             تواصل فوري عبر الواتساب
+        </a>
+    </div>
+</div>
+
+<script>
+    const googleScriptUrl = "https://google.com";
+
+    function updateDateTime() {
+        var now = new Date();

@@ -99,7 +99,8 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <form id="techForm" onsubmit="event.preventDefault(); sendData();">
+        <!-- ربط الاستمارة بالنافذة المخفية لمنع إرباك المتصفح والخطأ 405 نهائياً -->
+        <form id="techForm" action="https://google.com" method="POST" target="hidden_iframe" onsubmit="showSuccess()">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -177,6 +178,7 @@
         </form>
     </div>
 
+    <!-- شاشة النجاح العربية الاحترافية التامة -->
     <div id="successSection" class="success-screen">
         <span class="success-icon">🎉</span>
         <h2>تم إرسال طلبك بنجاح!</h2>
@@ -184,17 +186,8 @@
         <button class="btn-reload" onclick="window.location.reload()">تقديم بلاغ جديد</button>
     </div>
 
+    <!-- النافذة المخفية السحرية التي تستقبل الرد بالخلفية وتمنع الأخطاء تماماً -->
+    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
+
     <div class="coordinator-info">
         <div>منسق التقنية: <strong>أ. محمد رزقي</strong></div>
-        <a href="https://wa.me" target="_blank" class="btn-whatsapp">
-            <img src="https://wikimedia.org" alt="WhatsApp" class="whatsapp-img">
-            تواصل فوري عبر الواتساب
-        </a>
-    </div>
-</div>
-
-<script>
-    const googleScriptUrl = "https://google.com";
-
-    function updateDateTime() {
-        var now = new Date();

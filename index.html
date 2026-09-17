@@ -82,8 +82,13 @@
         .btn-whatsapp:hover { background-color: #20ba5a; }
         .whatsapp-img { width: 16px; height: 16px; }
 
-        .success-screen { display: none; text-align: center; padding: 20px 0; }
-        .success-screen h2 { color: var(--success); margin-bottom: 10px; }
+        /* شاشة النجاح الاحترافية المعدلة */
+        .success-screen { display: none; text-align: center; padding: 30px 10px; }
+        .success-icon { font-size: 50px; margin-bottom: 15px; display: inline-block; }
+        .success-screen h2 { color: var(--success); margin: 0 0 10px 0; font-size: 22px; font-weight: bold; }
+        .success-screen p { color: var(--text-muted); font-size: 15px; line-height: 1.5; margin: 0 0 20px 0; }
+        .btn-reload { background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; }
+        .btn-reload:hover { background-color: rgba(37, 99, 235, 0.05); }
     </style>
 </head>
 <body>
@@ -95,7 +100,6 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- تم ربط رابط الـ Web App المباشر الخاص بك هنا مجاناً للأبد -->
         <form id="techForm" action="https://google.com" method="POST">
             
             <div class="form-group">
@@ -174,10 +178,12 @@
         </form>
     </div>
 
+    <!-- شاشة النجاح الاحترافية المحدثة بالكامل باللغة العربية -->
     <div id="successSection" class="success-screen">
-        <h2>✅ تم إرسال طلبك بنجاح!</h2>
-        <p>تم تدوين بلاغك الفني في جدول البيانات الخاص بالمنسق وجاري المتابعة.</p>
-        <button onclick="window.location.reload()" style="background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 15px; font-weight: bold;">تقديم بلاغ آخر</button>
+        <span class="success-icon">🎉</span>
+        <h2>تم إرسال طلبك بنجاح!</h2>
+        <p>شكرًا لك، تم توثيق بلاغك الفني بالوقت والتاريخ في جدول البيانات الفورية الخاص بمنسق التقنية، وجاري العمل على مراجعته وحل المشكلة في أقرب وقت.</p>
+        <button class="btn-reload" onclick="window.location.reload()">تقديم بلاغ جديد</button>
     </div>
 
     <div class="coordinator-info">
@@ -190,11 +196,3 @@
 </div>
 
 <script>
-    function updateDateTime() {
-        var now = new Date();
-        var options = { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-        var formattedDate = new Intl.DateTimeFormat('ar-SA', options).format(now);
-        document.getElementById('timestamp').value = formattedDate;
-    }
-    window.onload = updateDateTime;
-

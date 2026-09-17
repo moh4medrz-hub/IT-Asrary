@@ -6,243 +6,296 @@
     <title>الدعم التقني - مجمع أسراري</title>
     <style>
         :root {
-            --primary-color: #2563eb;
-            --bg-color: #f1f5f9;
+            --primary: #3b82f6;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #1e293b;
-            --success: #22c55e;
-            --important: #eab308;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            
+            --success: #10b981;
+            --important: #f59e0b;
             --urgent: #ef4444;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
         }
 
-        .container {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        .app-container {
             width: 100%;
-            max-width: 440px;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        .header {
+        .main-card {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05), 0 4px 12px -4px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .brand-header {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 28px;
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0 0 8px 0;
-            color: var(--primary-color);
+        .brand-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+            display: inline-block;
         }
 
-        .header p {
-            font-size: 14px;
-            color: #64748b;
+        .brand-header h1 {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 0 0 6px 0;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .brand-header p {
+            font-size: 13.5px;
+            color: var(--text-muted);
             margin: 0;
         }
 
         .form-group {
             margin-bottom: 20px;
-            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 15px;
+        .form-group label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            padding-right: 2px;
         }
 
         input[type="text"], select, textarea {
             width: 100%;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 14px;
             box-sizing: border-box;
             font-size: 15px;
-            background-color: #f8fafc;
-            transition: all 0.3s;
+            background-color: #fff;
+            color: var(--text);
+            transition: all 0.25s ease;
+            font-family: inherit;
         }
 
         input[type="text"]:focus, select:focus, textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-            background-color: #fff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.12);
         }
 
-        .readonly-input {
-            background-color: #e2e8f0 !important;
-            color: #475569;
+        .readonly-box {
+            background-color: #f1f5f9 !important;
+            border-color: #e2e8f0 !important;
+            color: var(--text-muted);
+            font-weight: 600;
             cursor: not-allowed;
-            font-weight: bold;
-            border-color: #cbd5e1;
+            font-size: 14px;
         }
 
-        .priority-options {
+        /* تنسيق الخيارات الذكي للأولوية */
+        .priority-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
         }
 
-        .priority-btn {
-            border: 2px solid #cbd5e1;
-            padding: 10px;
-            border-radius: 8px;
+        .priority-card {
+            border: 1.5px solid var(--border);
+            padding: 14px 8px;
+            border-radius: 14px;
             text-align: center;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
             font-size: 14px;
-            transition: all 0.2s;
+            transition: all 0.2s ease;
             background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .priority-card span {
+            font-size: 12px;
+            font-weight: 500;
+            opacity: 0.7;
         }
 
         input[type="radio"] {
             display: none;
         }
 
-        #p-normal:checked + .priority-btn { border-color: var(--success); color: var(--success); background: rgba(34, 197, 94, 0.1); }
-        #p-important:checked + .priority-btn { border-color: var(--important); color: var(--important); background: rgba(234, 179, 8, 0.1); }
-        #p-urgent:checked + .priority-btn { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.1); }
+        #p-normal:checked + .priority-card { border-color: var(--success); color: var(--success); background: rgba(16, 185, 129, 0.08); box-shadow: 0 4px 12px rgba(16, 185, 129, 0.1); }
+        #p-important:checked + .priority-card { border-color: var(--important); color: var(--important); background: rgba(245, 158, 11, 0.08); box-shadow: 0 4px 12px rgba(245, 158, 11, 0.1); }
+        #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); box-shadow: 0 4px 12px rgba(239, 68, 68, 0.1); }
 
         button[type="submit"] {
             width: 100%;
-            background-color: var(--primary-color);
+            background-color: var(--primary);
             color: white;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 14px;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 10px;
+            transition: all 0.2s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
         }
 
         button[type="submit"]:hover {
-            background-color: #1d4ed8;
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+        
+        button[type="submit"]:active {
+            transform: translateY(0);
         }
 
-        /* تنسيق قسم معلومات منسق التقنية */
-        .coordinator-info {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px dashed #cbd5e1;
+        /* كارت معلومات المنسق السفلي */
+        .coordinator-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px;
             text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
             font-size: 14px;
-            color: #475569;
         }
 
-        .coordinator-info strong {
-            color: var(--text-color);
+        .coordinator-name {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+        
+        .coordinator-name strong {
+            color: var(--text);
         }
 
-        .whatsapp-link {
+        .btn-whatsapp {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
-            color: #25d366;
-            font-weight: bold;
+            gap: 8px;
+            background-color: #25d366;
+            color: white;
+            font-weight: 700;
             text-decoration: none;
-            margin-top: 5px;
-            font-size: 15px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 14.5px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);
+            width: 90%;
+            box-sizing: border-box;
         }
 
-        .whatsapp-link:hover {
-            text-decoration: underline;
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+            transform: translateY(-1px);
+        }
+
+        .whatsapp-img {
+            width: 18px;
+            height: 18px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="header">
-        <h1>💻 الدعم التقني - مجمع أسراري</h1>
-        <p>يرجى تعبئة تفاصيل العطل الفني لنتعامل معه فوراً</p>
-    </div>
-
-    <form id="techForm" action="https://formspree.io" method="POST">
-        
-        <div class="form-group">
-            <label for="timestamp">تاريخ ووقت تقديم الطلب (تلقائي)</label>
-            <input type="text" id="timestamp" name="تاريخ ووقت البلاغ" class="readonly-input" readonly>
+<div class="app-container">
+    <div class="main-card">
+        <div class="brand-header">
+            <span class="brand-icon">💻</span>
+            <h1>الدعم التقني</h1>
+            <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <div class="form-group">
-            <label for="department">القسم المعني</label>
-            <select id="department" name="القسم المعني" required>
-                <option value="" disabled selected>اختر القسم...</option>
-                <option value="الإدارة">الإدارة</option>
-                <option value="القسم الابتدائي">القسم الابتدائي</option>
-                <option value="القسم المتوسط">القسم المتوسط</option>
-                <option value="القسم الثانوي">القسم الثانوي</option>
-                <option value="معامل الحاسب الآلي">معامل الحاسب الآلي</option>
-                <option value="شؤون الطلاب">شؤون الطلاب</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="location">الموقع داخل المجمع بدقة</label>
-            <input type="text" id="location" name="الموقع الفعلي" placeholder="مثال: الدور الثاني - فصل 3ب، مكتب الوكيل" required>
-        </div>
-
-        <div class="form-group">
-            <label>أهمية الطلب (الأولوية)</label>
-            <div class="priority-options">
-                <label>
-                    <input type="radio" id="p-normal" name="أهمية الطلب" value="🟢 عادي" checked>
-                    <div class="priority-btn">عادي</div>
-                </label>
-                <label>
-                    <input type="radio" id="p-important" name="أهمية الطلب" value="🟡 مهم">
-                    <div class="priority-btn">مهم</div>
-                </label>
-                <label>
-                    <input type="radio" id="p-urgent" name="أهمية الطلب" value="🔴 عاجل">
-                    <div class="priority-btn">عاجل</div>
-                </label>
+        <form id="techForm" action="https://formspree.io" method="POST">
+            
+            <div class="form-group">
+                <label for="timestamp">تاريخ ووقت التوثيق</label>
+                <input type="text" id="timestamp" name="تاريخ ووقت البلاغ" class="readonly-box" readonly>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="description">وصف المشكلة التقنية</label>
-            <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل (مثل: البروجكتر لا يعمل، انقطاع شبكة...)" required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="department">القسم المعني</label>
+                <select id="department" name="القسم المعني" required>
+                    <option value="" disabled selected>اختر القسم المسبب للمشكلة...</option>
+                    <option value="الإدارة">الإدارة</option>
+                    <option value="القسم الابتدائي">القسم الابتدائي</option>
+                    <option value="القسم المتوسط">القسم المتوسط</option>
+                    <option value="القسم الثانوي">القسم الثانوي</option>
+                    <option value="معامل الحاسب الآلي">معامل الحاسب الآلي</option>
+                    <option value="شؤون الطلاب">شؤون الطلاب</option>
+                </select>
+            </div>
 
-        <button type="submit">إرسال الطلب للمنسق 🚀</button>
-    </form>
+            <div class="form-group">
+                <label for="location">الموقع الفعلي داخل المجمع</label>
+                <input type="text" id="location" name="الموقع الفعلي" placeholder="مثال: الدور الثاني - فصل 3ب، مكتب الوكيل" required>
+            </div>
 
-    <!-- قسم معلومات التواصل تحت زر الإرسال -->
-    <div class="coordinator-info">
-        منسق التقنية: <strong>أ. محمد رزقي</strong><br>
-        <a href="https://wa.me" target="_blank" class="whatsapp-link">
-            💬 تواصل عبر الواتساب: 0500128037
-        </a>
+            <div class="form-group">
+                <label>حالة وأهمية الطلب</label>
+                <div class="priority-grid">
+                    <label>
+                        <input type="radio" id="p-normal" name="أهمية الطلب" value="🟢 عادي" checked>
+                        <div class="priority-card">
+                            🟢 عادي
+                            <span>غير معطل للعمل</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" id="p-important" name="أهمية الطلب" value="🟡 مهم">
+                        <div class="priority-card">
+                            🟡 مهم
+                            <span>يوجد بديل مؤقت</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" id="p-urgent" name="أهمية الطلب" value="🔴 عاجل">
+                        <div class="priority-card">
+                            🔴 عاجل
+                            <span>توقف العمل تماماً</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">تفاصيل المشكلة التقنية</label>
+                <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة ومظاهره..." required></textarea>
+            </div>
+
+            <button type="submit">إرسال البلاغ الفني 🚀</button>
+        </form>
     </div>
-</div>
 
-<script>
-    function updateDateTime() {
-        var now = new Date();
-        var options = { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-        var formattedDate = new Intl.DateTimeFormat('ar-SA', options).format(now);
-        document.getElementById('timestamp').value = formattedDate;
-    }
-    window.onload = updateDateTime;
-</script>
-
-</body>
-</html>
+    <!-- بطاقة التواصل المنفصلة بالأسفل -->
+    <div class="coordinator-card">
+        <div class="coordinator-name">منسق التقنية بالمجمع: <strong>أ. محمد رزقي</strong></div>
+        <a href="https://wa.me" target="_blank" class="btn-whatsapp">

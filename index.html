@@ -72,17 +72,17 @@
         #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
         #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
-        button[type="submit"] {
-            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px;
+        /* تغيير الزر إلى نوع عادي لحل المشكلة قطعيّاً */
+        .btn-submit {
+            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; text-align: center;
         }
-        button[type="submit"]:hover { background-color: var(--primary-hover); }
+        .btn-submit:hover { background-color: var(--primary-hover); }
 
         .coordinator-info { margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center; font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25d366; color: white; font-weight: bold; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; margin-top: 8px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15); }
         .btn-whatsapp:hover { background-color: #20ba5a; }
         .whatsapp-img { width: 16px; height: 16px; }
 
-        /* شاشة النجاح العربية الاحترافية */
         .success-screen { display: none; text-align: center; padding: 30px 10px; }
         .success-icon { font-size: 50px; margin-bottom: 15px; display: inline-block; }
         .success-screen h2 { color: var(--success); margin: 0 0 10px 0; font-size: 22px; font-weight: bold; }
@@ -100,8 +100,8 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- رابط الـ Web App المباشر والمجاني الخاص بك مدمج هنا تلقائياً -->
-        <form id="techForm" action="https://google.com" method="POST">
+        <!-- تم حذف التوجيه المباشر لمنع تصادم المتصفح مع خوادم جوجل -->
+        <form id="techForm">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -175,7 +175,8 @@
                 <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn">إرسال البلاغ الفني 🚀</button>
+            <!-- تم تغيير نوع الزر وحذف الـ submit التقليدي للتحكم بالاستجابة بالخلفية -->
+            <button type="button" id="submitBtn" class="btn-submit" onclick="sendData()">إرسال البلاغ الفني 🚀</button>
         </form>
     </div>
 

@@ -53,8 +53,14 @@
         .form-group { margin-bottom: 18px; text-align: right; }
         .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--text); }
 
-        input[type="text"], select, textarea {
+        input[type="text"], select, textarea, input[type="file"] {
             width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; box-sizing: border-box; font-size: 15px; background-color: #fff; color: var(--text); transition: all 0.2s ease;
+        }
+
+        input[type="file"] {
+            padding: 8px;
+            background-color: #f8fafc;
+            cursor: pointer;
         }
 
         input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
@@ -72,22 +78,15 @@
         #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
         #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
-        .btn-submit {
-            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; text-align: center;
+        button[type="submit"] {
+            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px;
         }
-        .btn-submit:hover { background-color: var(--primary-hover); }
+        button[type="submit"]:hover { background-color: var(--primary-hover); }
 
         .coordinator-info { margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center; font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25d366; color: white; font-weight: bold; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; margin-top: 8px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15); }
         .btn-whatsapp:hover { background-color: #20ba5a; }
         .whatsapp-img { width: 16px; height: 16px; }
-
-        .success-screen { display: none; text-align: center; padding: 30px 10px; }
-        .success-icon { font-size: 50px; margin-bottom: 15px; display: inline-block; }
-        .success-screen h2 { color: var(--success); margin: 0 0 10px 0; font-size: 22px; font-weight: bold; }
-        .success-screen p { color: var(--text-muted); font-size: 15px; line-height: 1.5; margin: 0 0 20px 0; }
-        .btn-reload { background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; }
-        .btn-reload:hover { background-color: rgba(37, 99, 235, 0.05); }
     </style>
 </head>
 <body>
@@ -99,8 +98,8 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- ربط الاستمارة بالنافذة المخفية لمنع إرباك المتصفح والخطأ 405 نهائياً -->
-        <form id="techForm" action="https://google.com" method="POST" target="hidden_iframe" onsubmit="showSuccess()">
+        <!-- إرسال تقليدي مباشر ومضمون يدعم رفع الملفات وتوثيقها -->
+        <form id="techForm" action="https://google.com" method="POST" enctype="multipart/form-data">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -174,20 +173,34 @@
                 <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-submit">إرسال البلاغ الفني 🚀</button>
+            <!-- إضافة حقل إرفاق الصورة الاختياري -->
+            <div class="form-group">
+                <label for="problem-image">إرفاق صورة للمشكلة (اختياري)</label>
+                <input type="file" id="problem-image" name="صورة المشكلة" accept="image/*">
+            </div>
+
+            <button type="submit" id="submitBtn">إرسال البلاغ الفني 🚀</button>
         </form>
     </div>
 
-    <!-- شاشة النجاح العربية الاحترافية التامة -->
-    <div id="successSection" class="success-screen">
-        <span class="success-icon">🎉</span>
-        <h2>تم إرسال طلبك بنجاح!</h2>
-        <p>شكرًا لك، تم توثيق بلاغك الفني بالوقت والتاريخ في جدول البيانات الفورية الخاص بمنسق التقنية، وجاري العمل على مراجعته وحل المشكلة في أقرب وقت.</p>
-        <button class="btn-reload" onclick="window.location.reload()">تقديم بلاغ جديد</button>
-    </div>
-
-    <!-- النافذة المخفية السحرية التي تستقبل الرد بالخلفية وتمنع الأخطاء تماماً -->
-    <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;"></iframe>
-
     <div class="coordinator-info">
         <div>منسق التقنية: <strong>أ. محمد رزقي</strong></div>
+        <a href="https://wa.me" target="_blank" class="btn-whatsapp">
+            <img src="https://wikimedia.org" alt="WhatsApp" class="whatsapp-img">
+            تواصل فوري عبر الواتساب
+        </a>
+    </div>
+</div>
+
+<script>
+    function updateDateTime() {
+        var now = new Date();
+        var options = { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        var formattedDate = new Intl.DateTimeFormat('ar-SA', options).format(now);
+        document.getElementById('timestamp').value = formattedDate;
+    }
+    window.onload = updateDateTime;
+</script>
+
+</body>
+</html>

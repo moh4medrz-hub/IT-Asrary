@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق منسق التقنية بالمجمع</title>
+    <title>الدعم التقني - مجمع أسراري</title>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -83,6 +83,14 @@
             box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
         }
 
+        .readonly-input {
+            background-color: #e2e8f0 !important;
+            color: #475569;
+            cursor: not-allowed;
+            font-weight: bold;
+            border-color: #cbd5e1;
+        }
+
         .priority-options {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -126,19 +134,53 @@
         button[type="submit"]:hover {
             background-color: #1d4ed8;
         }
+
+        /* تنسيق قسم معلومات منسق التقنية */
+        .coordinator-info {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed #cbd5e1;
+            text-align: center;
+            font-size: 14px;
+            color: #475569;
+        }
+
+        .coordinator-info strong {
+            color: var(--text-color);
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: #25d366;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 5px;
+            font-size: 15px;
+        }
+
+        .whatsapp-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="header">
-        <h1>👨‍💻 منسق التقنية بالمجمع</h1>
+        <h1>💻 الدعم التقني - مجمع أسراري</h1>
         <p>يرجى تعبئة تفاصيل العطل الفني لنتعامل معه فوراً</p>
     </div>
 
-    <!-- تم تعديل الرابط بوضع المعرف الخاص بك هنا مباشرة لتفعيل الإرسال بدون مشاكل -->
-    <form action="https://formspree.io/f/mkjgnjzq" method="POST">
+    <form id="techForm" action="https://formspree.io" method="POST">
         
+        <div class="form-group">
+            <label for="timestamp">تاريخ ووقت تقديم الطلب (تلقائي)</label>
+            <input type="text" id="timestamp" name="تاريخ ووقت البلاغ" class="readonly-input" readonly>
+        </div>
+
         <div class="form-group">
             <label for="department">القسم المعني</label>
             <select id="department" name="القسم المعني" required>
@@ -182,7 +224,25 @@
 
         <button type="submit">إرسال الطلب للمنسق 🚀</button>
     </form>
+
+    <!-- قسم معلومات التواصل تحت زر الإرسال -->
+    <div class="coordinator-info">
+        منسق التقنية: <strong>أ. محمد رزقي</strong><br>
+        <a href="https://wa.me" target="_blank" class="whatsapp-link">
+            💬 تواصل عبر الواتساب: 0500128037
+        </a>
+    </div>
 </div>
+
+<script>
+    function updateDateTime() {
+        var now = new Date();
+        var options = { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        var formattedDate = new Intl.DateTimeFormat('ar-SA', options).format(now);
+        document.getElementById('timestamp').value = formattedDate;
+    }
+    window.onload = updateDateTime;
+</script>
 
 </body>
 </html>

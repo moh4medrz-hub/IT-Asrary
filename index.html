@@ -192,8 +192,27 @@
             <input type="text" id="timestamp" name="تاريخ ووقت البلاغ" class="readonly-box" readonly>
         </div>
 
+        <!-- إضافة حقل اسم مقدم الطلب -->
         <div class="form-group">
-            <label for="department">القسم المعني</label>
+            <label for="username">اسم مقدم الطلب</label>
+            <input type="text" id="username" name="اسم مقدم الطلب" placeholder="اكتب اسمك الثلاثي" required>
+        </div>
+
+        <!-- إضافة حقل الوظيفة -->
+        <div class="form-group">
+            <label for="job-title">الوظيفة / الدور</label>
+            <select id="job-title" name="الوظيفة" required>
+                <option value="" disabled selected>اختر الوظيفة...</option>
+                <option value="معلم / معلمة">معلم / معلمة</option>
+                <option value="إداري / إدارية">إداري / إدارية</option>
+                <option value="وكيل / وكيلة">وكيل / وكيلة</option>
+                <option value="مدير / مديرة">مدير / مديرة</option>
+                <option value="أخرى">أخرى</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="department">القسم المعني (مكان المشكلة)</label>
             <select id="department" name="القسم المعني" required>
                 <option value="" disabled selected>اختر القسم...</option>
                 <option value="الإدارة">الإدارة</option>

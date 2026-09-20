@@ -3,201 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام رفع البلاغات التقنية</title>
+    <title>الدعم التقني - مجمع أسراري</title>
     <style>
         :root {
-            --primary-color: #007bff;
-            --primary-hover: #0056b3;
-            --bg-color: #f4f7f6;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
             --card-bg: #ffffff;
-            --text-color: #333;
-            --border-color: #ccc;
-            --success-color: #28a745;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --important: #f59e0b;
+            --urgent: #ef4444;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-
-        .form-container {
-            background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 600px;
-            position: relative;
-        }
-
-        .form-container h2 {
-            margin-top: 0;
-            color: var(--primary-color);
-            border-bottom: 2px solid var(--bg-color);
-            padding-bottom: 10px;
-            text-align: center;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
             box-sizing: border-box;
-            font-size: 14px;
-            font-family: inherit;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        .main-card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            width: 100%;
+            max-width: 440px;
+            box-sizing: border-box;
         }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
+        .brand-header {
+            text-align: center;
+            margin-bottom: 24px;
         }
+
+        .brand-header h1 { font-size: 22px; font-weight: bold; margin: 0 0 6px 0; color: var(--text); }
+        .brand-header p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+        .form-group { margin-bottom: 18px; text-align: right; }
+        .form-group label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 8px; color: var(--text); }
+
+        input[type="text"], select, textarea {
+            width: 100%; padding: 12px; border: 1.5px solid var(--border); border-radius: 10px; box-sizing: border-box; font-size: 15px; background-color: #fff; color: var(--text); transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        .readonly-box { background-color: #f1f5f9 !important; color: var(--text-muted); font-weight: bold; cursor: not-allowed; }
+
+        .priority-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+        .priority-card { border: 1.5px solid var(--border); padding: 12px 4px; border-radius: 10px; text-align: center; cursor: pointer; font-weight: bold; font-size: 13px; transition: all 0.2s ease; background: #fff; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .priority-card span { font-size: 11px; font-weight: normal; color: var(--text-muted); display: block; margin-top: 2px; }
+
+        input[type="radio"] { display: none; }
+        #p-normal:checked + .priority-card { border-color: var(--success); color: var(--success); background: rgba(16, 185, 129, 0.08); }
+        #p-normal:checked + .priority-card span { color: var(--success); }
+        #p-important:checked + .priority-card { border-color: var(--important); color: var(--important); background: rgba(245, 158, 11, 0.08); }
+        #p-important:checked + .priority-card span { color: var(--important); }
+        #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
+        #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
         .btn-submit {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
+            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; text-align: center;
         }
+        .btn-submit:hover { background-color: var(--primary-hover); }
 
-        .btn-submit:hover {
-            background-color: var(--primary-hover);
+        .success-screen { display: none; text-align: center; padding: 30px 10px; }
+        .success-icon { font-size: 50px; margin-bottom: 15px; display: inline-block; }
+        .success-screen h2 { color: var(--success); margin: 0 0 10px 0; font-size: 22px; font-weight: bold; }
+        .success-screen p { color: var(--text-muted); font-size: 15px; line-height: 1.5; margin: 0 0 20px 0; }
+        .btn-reload { background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; }
+        .btn-reload:hover { background-color: rgba(37, 99, 235, 0.05); }
+
+        .tracking-guide {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            text-align: right;
         }
-
-        /* رسالة النجاح */
-        .success-message {
-            display: none;
-            background-color: #d4edda;
-            color: #155724;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #c3e6cb;
-            border-radius: 4px;
-            text-align: center;
+        .tracking-guide h3 {
+            font-size: 14px;
+            margin: 0 0 10px 0;
+            color: var(--text);
             font-weight: bold;
         }
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .coordinator-info { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; font-size: 14px; }
+        .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25d366; color: white; font-weight: bold; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; margin-top: 8px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15); }
+        .btn-whatsapp:hover { background-color: #20ba5a; }
     </style>
 </head>
 <body>
 
-<div class="form-container">
-    <h2>تقديم بلاغ تقني</h2>
-    
-    <!-- مكان ظهور رسالة النجاح -->
-    <div id="successMessage" class="success-message"></div>
-
-    <form id="techReportForm" action="/submit-report" method="POST" enctype="multipart/form-data">
-        
-        <!-- معلومات المُبلغ -->
-        <div class="form-group">
-            <label for="name">الاسم الكامل:</label>
-            <input type="text" id="name" name="name" placeholder="أدخل اسمك الثلاثي" required>
+<div class="main-card">
+    <!-- أولاً: قسم الاستمارة الأساسي -->
+    <div id="formSection">
+        <div class="brand-header">
+            <h1>💻 الدعم التقني</h1>
+            <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <div class="form-group">
-            <label for="email">البريد الإلكتروني:</label>
-            <input type="email" id="email" name="email" placeholder="example@domain.com" required>
-        </div>
+        <form id="techForm">
+            <div class="form-group">
+                <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
+                <input type="text" id="timestamp" name="تاريخ ووقت البلاغ" class="readonly-box" readonly>
+            </div>
 
-        <!-- تفاصيل البلاغ -->
-        <div class="form-group">
-            <label for="category">نوع المشكلة التقنية:</label>
-            <select id="category" name="category" required>
-                <option value="" disabled selected>اختر نوع المشكلة...</option>
-                <option value="hardware">أعطال الأجهزة (Hardware)</option>
-                <option value="software">مشكلة في الأنظمة أو البرامج (Software)</option>
-                <option value="network">انقطاع أو بطء الإنترنت والشبكات</option>
-                <option value="account">مشاكل الحسابات وكلمات المرور</option>
-                <option value="other">أخرى</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="username">اسم مقدم الطلب</label>
+                <input type="text" id="username" name="اسم مقدم الطلب" placeholder="اكتب اسمك الثلاثي" required>
+            </div>
 
-        <div class="form-group">
-            <label for="priority">درجة الأهمية:</label>
-            <select id="priority" name="priority" required>
-                <option value="low">منخفضة (لا تعطل العمل اليومي)</option>
-                <option value="medium" selected>متوسطة</option>
-                <option value="high">عالية (تأثير مباشر على العمل)</option>
-                <option value="critical">حرجة (توقف كامل للنظام أو الخدمة)</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="job-title">الوظيفة / الدور</label>
+                <select id="job-title" name="الوظيفة" required>
+                    <option value="" disabled selected>اختر الوظيفة...</option>
+                    <option value="معلم / معلمة">معلم / معلمة</option>
+                    <option value="إداري / إدارية">إداري / إدارية</option>
+                    <option value="وكيل / وكيلة">وكيل / وكيلة</option>
+                    <option value="مدير / مديرة">مدير / مديرة</option>
+                    <option value="أخرى">أخرى</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="subject">عنوان البلاغ:</label>
-            <input type="text" id="subject" name="subject" placeholder="مثال: عدم القدرة على تسجيل الدخول للأنظمة" required>
-        </div>
+            <div class="form-group">
+                <label for="department">القسم المعني (مكان المشكلة)</label>
+                <select id="department" name="القسم المعني" required>
+                    <option value="" disabled selected>اختر القسم...</option>
+                    <option value="الإدارة">الإدارة</option>
+                    <option value="القسم الابتدائي">القسم الابتدائي</option>
+                    <option value="القسم المتوسط">القسم المتوسط</option>
+                    <option value="القسم الثانوي">القسم الثانوي</option>
+                    <option value="معامل الحاسب الآلي">معامل الحاسب الآلي</option>
+                    <option value="شؤون الطلاب">شؤون الطلاب</option>
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label for="description">وصف تفصيلي للمشكلة:</label>
-            <textarea id="description" name="description" placeholder="يرجى كتابة خطوات حدوث المشكلة وأي رسائل خطأ تظهر لك..." required></textarea>
-        </div>
+            <div class="form-group">
+                <label for="location">الموقع الفعلي داخل المجمع</label>
+                <input type="text" id="location" name="الموقع الفعلي" placeholder="مثال: الدور الثاني - فصل 3ب، مكتب الوكيل" required>
+            </div>
 
-        <!-- رفع المرفقات -->
-        <div class="form-group">
-            <label for="attachment">إرفاق صورة للخطأ أو ملف توضيحي (اختياري):</label>
-            <input type="file" id="attachment" name="attachment" accept="image/*,.pdf,.doc,.docx">
-        </div>
+            <div class="form-group">
+                <label>حالة وأهمية الطلب</label>
+                <div class="priority-grid">
+                    <label>
+                        <input type="radio" id="p-normal" name="أهمية الطلب" value="🟢 عادي" checked>
+                        <div class="priority-card">
+                            🟢 عادي
+                            <span>غير معطل</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" id="p-important" name="أهمية الطلب" value="🟡 مهم">
+                        <div class="priority-card">
+                            🟡 مهم
+                            <span>يوجد بديل</span>
+                        </div>
+                    </label>
+                    <label>
+                        <input type="radio" id="p-urgent" name="أهمية الطلب" value="🔴 عاجل">
+                        <div class="priority-card">
+                            🔴 عاجل
+                            <span>تعطل كامل</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
 
-        <!-- زر الإرسال -->
-        <button type="submit" class="btn-submit">إرسال البلاغ التقني</button>
+            <div class="form-group">
+                <label for="description">تفاصيل المشكلة التقنية</label>
+                <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
+            </div>
 
-    </form>
-</div>
+            <!-- تم تعديل استدعاء وظيفة الحفظ الفوري هنا بالتأكيد -->
+            <button type="button" id="submitBtn" class="btn-submit" onclick="executeSubmit()">إرسال البلاغ الفني 🚀</button>
+        </form>
+    </div>
 
-<script>
-    document.getElementById('techReportForm').addEventListener('submit', function(event) {
-        // منع النموذج من إعادة تحميل الصفحة بشكل تلقائي لتجربة الكود فوراً
-        event.preventDefault();
-
-        // توليد رقم بلاغ عشوائي للتوضيح
-        const reportId = Math.floor(100000 + Math.random() * 900000);
-
-        // إظهار رسالة النجاح
-        const successDiv = document.getElementById('successMessage');
-        successDiv.innerHTML = `🎉 تم إرسال البلاغ بنجاح! رقم التتبع الخاص بك هو: #${reportId}`;
-        successDiv.style.display = 'block';
-
-        // إعادة تعيين الحقول (تنظيف الفورم)
-        document.getElementById('techReportForm').reset();
-
-        // التمرير لأعلى الصفحة لرؤية الرسالة
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-</script>
-
-</body>
-</html>
+    <!-- ثانياً: شاشة النجاح (مخفية وتظهر عند الضغط) -->
+    <div id="successSection" class="success-screen">
+        <span class="success-icon">🎉</span>
+        <h2>تم إرسال طلبك بنجاح!</h2>

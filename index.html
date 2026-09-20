@@ -72,18 +72,22 @@
         #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
         #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
-        button[type="submit"] {
-            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px;
+        .btn-submit {
+            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; display: block; text-decoration: none; text-align: center;
         }
-        button[type="submit"]:hover { background-color: var(--primary-hover); }
+        .btn-submit:hover { background-color: var(--primary-hover); }
 
         .coordinator-info { margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center; font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25d366; color: white; font-weight: bold; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; margin-top: 8px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15); }
         .btn-whatsapp:hover { background-color: #20ba5a; }
         .whatsapp-img { width: 16px; height: 16px; }
 
-        .success-screen { display: none; text-align: center; padding: 20px 0; }
-        .success-screen h2 { color: var(--success); margin-bottom: 10px; }
+        .image-hint {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -95,8 +99,7 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- تم ربط رابط الـ Web App المباشر الخاص بك هنا مجاناً للأبد -->
-        <form id="techForm" action="https://google.com" method="POST">
+        <form id="techForm">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -170,21 +173,15 @@
                 <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn">إرسال البلاغ الفني 🚀</button>
+            <button type="button" class="btn-submit" onclick="redirectToWhatsApp()">إرسال البلاغ فوري عبر الواتساب 🚀</button>
         </form>
-    </div>
-
-    <div id="successSection" class="success-screen">
-        <h2>✅ تم إرسال طلبك بنجاح!</h2>
-        <p>تم تدوين بلاغك الفني في جدول البيانات الخاص بالمنسق وجاري المتابعة.</p>
-        <button onclick="window.location.reload()" style="background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 15px; font-weight: bold;">تقديم بلاغ آخر</button>
     </div>
 
     <div class="coordinator-info">
         <div>منسق التقنية: <strong>أ. محمد رزقي</strong></div>
         <a href="https://wa.me" target="_blank" class="btn-whatsapp">
             <img src="https://wikimedia.org" alt="WhatsApp" class="whatsapp-img">
-            تواصل فوري عبر الواتساب
+            محادثة مباشرة مع الفني
         </a>
     </div>
 </div>
@@ -197,4 +194,19 @@
         document.getElementById('timestamp').value = formattedDate;
     }
     window.onload = updateDateTime;
+
+    function redirectToWhatsApp() {
+        const form = document.getElementById('techForm');
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const time = document.getElementById('timestamp').value;
+        const name = document.getElementById('username').value;
+        const job = document.getElementById('job-title').value;
+        const dept = document.getElementById('department').value;
+        const loc = document.getElementById('location').value;
+        const priority = document.querySelector('input[name="أهمية الطلب"]:checked').value;
+        const desc = document.getElementById('description').value;
 

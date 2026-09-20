@@ -12,6 +12,7 @@
             --card-bg: #ffffff;
             --text-color: #333;
             --border-color: #ccc;
+            --success-color: #28a745;
         }
 
         body {
@@ -33,6 +34,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 600px;
+            position: relative;
         }
 
         .form-container h2 {
@@ -95,13 +97,30 @@
         .btn-submit:hover {
             background-color: var(--primary-hover);
         }
+
+        /* رسالة النجاح */
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
 <div class="form-container">
     <h2>تقديم بلاغ تقني</h2>
-    <form action="/submit-report" method="POST" enctype="multipart/form-data">
+    
+    <!-- مكان ظهور رسالة النجاح -->
+    <div id="successMessage" class="success-message"></div>
+
+    <form id="techReportForm" action="/submit-report" method="POST" enctype="multipart/form-data">
         
         <!-- معلومات المُبلغ -->
         <div class="form-group">
@@ -147,7 +166,7 @@
             <textarea id="description" name="description" placeholder="يرجى كتابة خطوات حدوث المشكلة وأي رسائل خطأ تظهر لك..." required></textarea>
         </div>
 
-        <!-- رفع المرفقات (صور الخطأ) -->
+        <!-- رفع المرفقات -->
         <div class="form-group">
             <label for="attachment">إرفاق صورة للخطأ أو ملف توضيحي (اختياري):</label>
             <input type="file" id="attachment" name="attachment" accept="image/*,.pdf,.doc,.docx">
@@ -158,6 +177,27 @@
 
     </form>
 </div>
+
+<script>
+    document.getElementById('techReportForm').addEventListener('submit', function(event) {
+        // منع النموذج من إعادة تحميل الصفحة بشكل تلقائي لتجربة الكود فوراً
+        event.preventDefault();
+
+        // توليد رقم بلاغ عشوائي للتوضيح
+        const reportId = Math.floor(100000 + Math.random() * 900000);
+
+        // إظهار رسالة النجاح
+        const successDiv = document.getElementById('successMessage');
+        successDiv.innerHTML = `🎉 تم إرسال البلاغ بنجاح! رقم التتبع الخاص بك هو: #${reportId}`;
+        successDiv.style.display = 'block';
+
+        // إعادة تعيين الحقول (تنظيف الفورم)
+        document.getElementById('techReportForm').reset();
+
+        // التمرير لأعلى الصفحة لرؤية الرسالة
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
 
 </body>
 </html>

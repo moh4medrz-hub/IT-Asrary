@@ -72,18 +72,50 @@
         #p-urgent:checked + .priority-card { border-color: var(--urgent); color: var(--urgent); background: rgba(239, 68, 68, 0.08); }
         #p-urgent:checked + .priority-card span { color: var(--urgent); }
 
-        button[type="submit"] {
-            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px;
+        .btn-submit {
+            width: 100%; background-color: var(--primary); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.2s ease; margin-top: 8px; text-align: center;
         }
-        button[type="submit"]:hover { background-color: var(--primary-hover); }
+        .btn-submit:hover { background-color: var(--primary-hover); }
 
-        .coordinator-info { margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border); text-align: center; font-size: 14px; }
+        .success-screen { display: none; text-align: center; padding: 30px 10px; }
+        .success-icon { font-size: 50px; margin-bottom: 15px; display: inline-block; }
+        .success-screen h2 { color: var(--success); margin: 0 0 10px 0; font-size: 22px; font-weight: bold; }
+        .success-screen p { color: var(--text-muted); font-size: 15px; line-height: 1.5; margin: 0 0 20px 0; }
+        .btn-reload { background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 24px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; }
+        .btn-reload:hover { background-color: rgba(37, 99, 235, 0.05); }
+
+        /* دليل المتابعة المضاف حديثاً */
+        .tracking-guide {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            text-align: right;
+        }
+        .tracking-guide h3 {
+            font-size: 14px;
+            margin: 0 0 10px 0;
+            color: var(--text);
+            font-weight: bold;
+        }
+        .guide-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12.5px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .coordinator-info { margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); text-align: center; font-size: 14px; }
         .btn-whatsapp { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background-color: #25d366; color: white; font-weight: bold; text-decoration: none; padding: 10px 16px; border-radius: 10px; font-size: 14px; margin-top: 8px; width: 100%; box-sizing: border-box; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.15); }
         .btn-whatsapp:hover { background-color: #20ba5a; }
         .whatsapp-img { width: 16px; height: 16px; }
-
-        .success-screen { display: none; text-align: center; padding: 20px 0; }
-        .success-screen h2 { color: var(--success); margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -95,8 +127,7 @@
             <p>مجمع أسراري التعليمي</p>
         </div>
 
-        <!-- تم ربط رابط الـ Web App المباشر الخاص بك هنا مجاناً للأبد -->
-        <form id="techForm" action="https://google.com" method="POST">
+        <form id="techForm" onsubmit="event.preventDefault(); sendData();">
             
             <div class="form-group">
                 <label for="timestamp">تاريخ ووقت تقديم الطلب</label>
@@ -170,31 +201,10 @@
                 <textarea id="description" name="وصف المشكلة" rows="4" placeholder="يرجى كتابة تفاصيل العطل بدقة..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn">إرسال البلاغ الفني 🚀</button>
+            <button type="submit" id="submitBtn" class="btn-submit">إرسال البلاغ الفني 🚀</button>
         </form>
     </div>
 
     <div id="successSection" class="success-screen">
-        <h2>✅ تم إرسال طلبك بنجاح!</h2>
-        <p>تم تدوين بلاغك الفني في جدول البيانات الخاص بالمنسق وجاري المتابعة.</p>
-        <button onclick="window.location.reload()" style="background: none; border: 1.5px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 10px; cursor: pointer; margin-top: 15px; font-weight: bold;">تقديم بلاغ آخر</button>
-    </div>
-
-    <div class="coordinator-info">
-        <div>منسق التقنية: <strong>أ. محمد رزقي</strong></div>
-        <a href="https://wa.me" target="_blank" class="btn-whatsapp">
-            <img src="https://wikimedia.org" alt="WhatsApp" class="whatsapp-img">
-            تواصل فوري عبر الواتساب
-        </a>
-    </div>
-</div>
-
-<script>
-    function updateDateTime() {
-        var now = new Date();
-        var options = { timeZone: 'Asia/Riyadh', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
-        var formattedDate = new Intl.DateTimeFormat('ar-SA', options).format(now);
-        document.getElementById('timestamp').value = formattedDate;
-    }
-    window.onload = updateDateTime;
-
+        <span class="success-icon">🎉</span>
+        <h2>تم إرسال طلبك بنجاح!</h2>
